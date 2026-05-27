@@ -5,26 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Extract zip file
-        run: unzip sip_flutter_project.zip -d .
-
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          
-      - name: Install dependencies
-        run: |
-          cd sip_app
-          flutter pub get
-          
-      - name: Build APK
-        run: |
-          cd sip_app
-          flutter build apk --release
-      
+      - run: flutter pub get
+      - run: flutter build apk --release
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
-          path: sip_app/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
