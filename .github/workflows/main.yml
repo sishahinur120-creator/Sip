@@ -13,11 +13,18 @@ jobs:
         with:
           channel: 'stable'
           
-      - run: flutter pub get
-      - run: flutter build apk --release
+      - name: Install dependencies
+        run: |
+          cd sip_app
+          flutter pub get
+          
+      - name: Build APK
+        run: |
+          cd sip_app
+          flutter build apk --release
       
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: sip_app/build/app/outputs/flutter-apk/app-release.apk
